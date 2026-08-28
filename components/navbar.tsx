@@ -10,19 +10,15 @@ const navItems = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ]
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -30,74 +26,45 @@ export function Navbar() {
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-canvas/80 backdrop-blur-xl border-b border-hairline shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-canvas/90 backdrop-blur-xl border-b border-hairline" : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container-custom">
+      <div className="container-nvidia">
         <div className="flex items-center justify-between h-16 px-6">
-          {/* Logo */}
-          <Link href="#hero" className="text-heading-md font-bold gradient-text">
+          <Link href="#hero" className="font-mono text-heading-sm font-bold text-nvidia">
             MNP
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-body-sm text-ink-secondary hover:text-ink transition-colors duration-200"
+                className="px-4 py-2 rounded-md text-body-sm text-ink-muted hover:text-white transition-colors font-mono"
               >
                 {item.name}
               </Link>
             ))}
-            <Link
-              href="#contact"
-              className="btn-primary"
-            >
-              Get in Touch
+            <Link href="#contact" className="btn-nvidia ml-4 text-sm py-2 px-5">
+              Hire Me
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-ink-secondary hover:text-ink transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <button className="md:hidden p-2 text-ink-muted" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-surface-1 border-t border-hairline"
-          >
-            <div className="flex flex-col space-y-4 px-6 py-6">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-body-md text-ink-secondary hover:text-ink transition-colors duration-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <Link
-                href="#contact"
-                className="btn-primary text-center"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get in Touch
+        {isOpen && (
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="md:hidden bg-surface border-t border-hairline p-4 space-y-1">
+            {navItems.map((item) => (
+              <Link key={item.name} href={item.href} onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-md text-body-md text-ink-muted hover:text-white hover:bg-surface-elevated transition-colors font-mono">
+                {item.name}
               </Link>
-            </div>
+            ))}
           </motion.div>
         )}
       </div>

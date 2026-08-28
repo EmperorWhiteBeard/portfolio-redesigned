@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+    --font-geist: "Geist", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", monospace;
   }
 
   html {
@@ -12,156 +13,211 @@
   }
 
   body {
-    background-color: #0a0a0a;
+    background-color: #050505;
     color: #ffffff;
     -webkit-font-smoothing: antialiased;
+    font-family: var(--font-geist);
+  }
+
+  ::selection {
+    background-color: rgba(118, 185, 0, 0.3);
+    color: #ffffff;
   }
 }
 
 @layer components {
-  .btn-primary {
-    background-color: #3b82f6;
-    color: #ffffff;
-    font-weight: 500;
-    border-radius: 8px;
-    padding: 12px 24px;
+  /* NVIDIA Green Button */
+  .btn-nvidia {
+    background: linear-gradient(135deg, #76B900 0%, #5A8F00 100%);
+    color: #000000;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 12px 28px;
     transition: all 0.2s ease;
+    letter-spacing: 0.02em;
   }
 
-  .btn-primary:hover {
-    background-color: #60a5fa;
+  .btn-nvidia:hover {
+    background: linear-gradient(135deg, #8FD600 0%, #76B900 100%);
+    box-shadow: 0 0 32px rgba(118, 185, 0, 0.4);
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
   }
 
-  .btn-secondary {
-    background-color: #1a1a1a;
+  /* Dark Button */
+  .btn-dark {
+    background-color: #141414;
     color: #ffffff;
     font-weight: 500;
-    border-radius: 8px;
-    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 12px 28px;
     border: 1px solid #2a2a2a;
     transition: all 0.2s ease;
   }
 
-  .btn-secondary:hover {
-    background-color: #222222;
-    border-color: #3a3a3a;
+  .btn-dark:hover {
+    background-color: #1a1a1a;
+    border-color: #76B900;
+    box-shadow: 0 0 16px rgba(118, 185, 0, 0.15);
   }
 
+  /* Ghost Button */
   .btn-ghost {
-    color: #e5e7eb;
+    color: #a3a3a3;
     font-weight: 500;
-    border-radius: 8px;
-    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 12px 28px;
     transition: all 0.2s ease;
   }
 
   .btn-ghost:hover {
-    background-color: #111111;
+    background-color: #0d0d0d;
     color: #ffffff;
   }
 
-  .card {
-    background-color: #111111;
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 24px;
+  /* NVIDIA Card */
+  .card-nvidia {
+    background-color: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 8px;
+    padding: 28px;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  .card:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  .card-nvidia::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(118, 185, 0, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-nvidia:hover {
+    border-color: rgba(118, 185, 0, 0.2);
+    box-shadow: 0 0 30px rgba(118, 185, 0, 0.08);
     transform: translateY(-2px);
   }
 
-  .input {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: 1px solid #2a2a2a;
+  .card-nvidia:hover::before {
+    opacity: 1;
+  }
+
+  /* Terminal Card */
+  .card-terminal {
+    background-color: #0a0a0a;
+    border: 1px solid #1f1f1f;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: 24px;
+    font-family: var(--font-mono);
+  }
+
+  .card-terminal .prompt {
+    color: #76B900;
+  }
+
+  /* Inputs */
+  .input-nvidia {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 12px 16px;
     width: 100%;
+    font-size: 14px;
     transition: all 0.2s ease;
   }
 
-  .input:focus {
-    border-color: #3b82f6;
+  .input-nvidia:focus {
+    border-color: #76B900;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.1);
   }
 
-  .textarea {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-    padding: 10px 16px;
-    width: 100%;
-    resize: none;
-    transition: all 0.2s ease;
+  .input-nvidia::placeholder {
+    color: #525252;
   }
 
-  .textarea:focus {
-    border-color: #3b82f6;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-  }
-
-  .section {
+  /* Section */
+  .section-nvidia {
     padding-top: 120px;
     padding-bottom: 120px;
     padding-left: 24px;
     padding-right: 24px;
   }
 
-  .container-custom {
-    max-width: 1280px;
+  .container-nvidia {
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .badge {
+  /* Badge */
+  .badge-nvidia {
     display: inline-flex;
     align-items: center;
     padding: 4px 12px;
-    border-radius: 9999px;
+    border-radius: 4px;
     font-size: 12px;
     font-weight: 500;
-    background-color: #1a1a1a;
-    color: #e5e7eb;
-    border: 1px solid #2a2a2a;
+    font-family: var(--font-mono);
+    background-color: rgba(118, 185, 0, 0.08);
+    color: #76B900;
+    border: 1px solid rgba(118, 185, 0, 0.15);
   }
 
-  .badge-primary {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border: 1px solid rgba(59, 130, 246, 0.2);
+  .badge-dark {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #141414;
+    color: #737373;
+    border: 1px solid #1f1f1f;
   }
 
-  .skill-bar {
-    height: 8px;
-    background-color: #1a1a1a;
-    border-radius: 9999px;
-    overflow: hidden;
+  /* Green Text */
+  .text-nvidia {
+    color: #76B900;
   }
 
-  .skill-bar-fill {
-    height: 100%;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    transition: all 1s ease-out;
-  }
-
-  .divider {
+  /* Divider */
+  .divider-nvidia {
     height: 1px;
-    background-color: #2a2a2a;
+    background: linear-gradient(90deg, transparent, #1f1f1f, transparent);
+  }
+
+  /* Scanline effect (very subtle) */
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Green border glow */
+  .border-glow {
+    border: 1px solid rgba(118, 185, 0, 0.15);
+    box-shadow: inset 0 0 20px rgba(118, 185, 0, 0.03);
   }
 }
